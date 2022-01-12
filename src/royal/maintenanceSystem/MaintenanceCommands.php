@@ -1,5 +1,7 @@
 <?php
+
 namespace royal\maintenanceSystem;
+
 use jojoe77777\FormAPI\CustomForm;
 use jojoe77777\FormAPI\SimpleForm;
 use pocketmine\command\Command;
@@ -9,7 +11,8 @@ use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use royal\maintenanceSystem\task\MaintenanceTask;
 
-class MaintenanceCommands extends Command{
+class MaintenanceCommands extends Command
+{
     public function __construct (string $name, Translatable|string $description = "", Translatable|string|null $usageMessage = null, array $aliases = [])
     {
         $this->setPermission("maintenance.use");
@@ -18,25 +21,24 @@ class MaintenanceCommands extends Command{
 
     public function execute (CommandSender $sender, string $commandLabel, array $args): bool
     {
-        if ($sender instanceof Player){
-            if ($this->testPermission($sender, "maintenance.use")){
+        if ($sender instanceof Player) {
+            if ($this->testPermission($sender, "maintenance.use")) {
                 $sender->sendMessage("tu n'a pas la permission");
                 return true;
             }
-            $form = new SimpleForm(function (Player $player, int $meta = null){
-                if ($meta === null){
+            $form = new SimpleForm(function (Player $player, int $meta = null) {
+                if ($meta === null) {
                     return true;
                 }
-                switch ($meta){
+                switch ($meta) {
                     case 0:
                         $this->sendOnMaintenance($player);
                         break;
                     case 1:
-                        $dir = Main::getInstance()->getServer()->getDataPath()."server.properties";
+                        $dir = Main::getInstance()->getServer()->getDataPath() . "server.properties";
                         $test = new Config($dir);
                         $test->set("white-list", false);
                         $test->save();
-                        Main::getInstance()->getServer()->shutdown();
                         break;
                 }
                 return true;
@@ -47,12 +49,16 @@ class MaintenanceCommands extends Command{
         }
         return true;
     }
-    public function sendOnMaintenance(Player $sender){
-        $form = new CustomForm(function (Player $player, array $meta = null){
-            Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MaintenanceTask($meta[1], $meta[0]), 20);
+
+    public function sendOnMaintenance (Player $sender)
+    {
+        $form = new CustomForm(function (Player $player, array $meta = null) {
+            var_dump($meta);
+            Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MaintenanceTask($meta[1],$meta[2], $meta[0]), 20);
         });
         $form->setTitle("Maintenance System");
         $form->addInput(Main::$config->get("form-reason"));
+        $form->addToggle(Main::$lang->get("form-toggle-shutdown"));
         $form->addSlider("time", 1, 500);
         $sender->sendForm($form);
     }
