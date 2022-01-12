@@ -49,7 +49,7 @@ class Main extends PluginBase implements Listener
             "ip-server" => "127.0.0.1",
             "port-server" => "19132",
             "sendToDiscord" => true,
-            "webHook-Discord"=>"https://discord.com/api/webhooks/930828599982977104/yg8U8Fhp2IIlvYmbdmEnVovRHJK_wHd52FPmQTE95TWbMOB4d7amyYL8iY3zZEVU0361"
+            "webHook-Discord"=>""
         ));
         self::$lang = new Config($this->getDataFolder() . "fr.FR.yml");
     }
