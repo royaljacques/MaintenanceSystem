@@ -37,7 +37,6 @@ class Main extends PluginBase implements Listener
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getCommandMap()->register(".", new MaintenanceCommands("maintenance", "activate maintenance in this server", "/maintenance help"));
         self::$config = new Config($this->getDataFolder() . "config.yml", Config::YAML, array(
-            "maintenance-announce" => "Une maintenance va débuter dans: {time}",
             "secound-announce" => [
                 30,
                 20,
@@ -47,11 +46,10 @@ class Main extends PluginBase implements Listener
             "tranfere-to-other-server" => true,
             "ip-server" => "127.0.0.1",
             "port-server" => "19132",
-            "message-to-kick" => "you have bean kicked for Maintenance server",
-            "form-reason" => "raison"
-
+            "sendToDiscord" => true,
+            "webHook-Discord"=>"https://discord.com/api/webhooks/930828599982977104/yg8U8Fhp2IIlvYmbdmEnVovRHJK_wHd52FPmQTE95TWbMOB4d7amyYL8iY3zZEVU0361"
         ));
-        self::$lang = new Config($this->getDataFolder()."fr.FR.yml");
+        self::$lang = new Config($this->getDataFolder() . "fr.FR.yml");
     }
 
     public static function getInstance (): self

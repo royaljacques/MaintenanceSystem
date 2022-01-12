@@ -1,1 +1,12 @@
-form-toggle-shutdown: "étteindre le serveur"
+form-toggle-shutdown: "éteindre le serveur"
+message-to-kick: "you have bean kicked for Maintenance server"
+form-reason: "raison"
+maintenance-announce: "Une maintenance va débuter dans: {time} secondes"
+
+
+
+# if you have activated the discord extension
+form-discord: "text for discord"
+title: "Announce Maintenance"
+date: "dans: {time}"
+end-maintenance: "maintenance as finished"
