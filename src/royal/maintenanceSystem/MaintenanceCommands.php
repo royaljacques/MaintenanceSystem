@@ -52,7 +52,7 @@ class MaintenanceCommands extends Command
                 $form->addButton("Maintenance off");
                 $sender->sendForm($form);
             } else {
-                $sender->sendMessage();
+                $sender->sendMessage("you don't have permission");
             }
         }
         return;
