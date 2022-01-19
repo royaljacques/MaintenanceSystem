@@ -21,12 +21,8 @@ use pocketmine\permission\Permission;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 
-
-
 class Main extends PluginBase implements Listener
 {
-
-
     public static Config $config;
     public static Config $lang;
     public static self $instance;
@@ -49,7 +45,7 @@ class Main extends PluginBase implements Listener
             "ip-server" => "127.0.0.1",
             "port-server" => "19132",
             "sendToDiscord" => true,
-            "webHook-Discord"=>""
+            "webHook-Discord" => ""
         ));
         self::$lang = new Config($this->getDataFolder() . "fr.FR.yml");
     }

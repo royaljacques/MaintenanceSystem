@@ -11,6 +11,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\lang\Translatable;
 use pocketmine\player\Player;
+use pocketmine\Server;
 use pocketmine\utils\Config;
 use royal\maintenanceSystem\task\MaintenanceTask;
 
@@ -25,10 +26,8 @@ class MaintenanceCommands extends Command
     public function execute (CommandSender $sender, string $commandLabel, array $args): void
     {
         if ($sender instanceof Player) {
-            if (!$this->testPermission($sender)) {
-                $sender->sendMessage("tu n'a pas la permission");
-                return;
-            }else{
+
+            if ($this->testPermission($sender) || Server::getInstance()->isOp($sender->getName())) {
                 $form = new SimpleForm(function (Player $player, int $meta = null) {
                     if ($meta === null) {
                         return true;
@@ -52,6 +51,8 @@ class MaintenanceCommands extends Command
                 $form->addButton("Maintenance on");
                 $form->addButton("Maintenance off");
                 $sender->sendForm($form);
+            } else {
+                $sender->sendMessage();
             }
         }
         return;
