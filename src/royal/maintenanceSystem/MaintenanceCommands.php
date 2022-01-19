@@ -52,7 +52,7 @@ class MaintenanceCommands extends Command
                 $form->addButton("Maintenance off");
                 $sender->sendForm($form);
             } else {
-                $sender->sendMessage("you don't have permission");
+
             }
         }
         return;
@@ -61,6 +61,9 @@ class MaintenanceCommands extends Command
     public function sendOnMaintenance (Player $sender)
     {
         $form = new CustomForm(function (Player $player, array $meta = null) {
+            if ($meta === null){
+                return;
+            }
             if (Main::$config->get("sendToDiscord") === true) {
                 $this->sendToDiscord($meta[3], $meta[2]);
             }
